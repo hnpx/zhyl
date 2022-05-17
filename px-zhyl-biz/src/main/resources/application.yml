@@ -1,0 +1,133 @@
+server:
+  port: 9300
+
+spring:
+  application:
+    name: px-template-monomer
+  profiles:
+    active: dev
+  mvc:
+    htmlEscape: false
+    javaScriptEscape: false
+  main:
+    allow-bean-definition-overriding: true
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+  inetutils:
+    # 忽略网卡，eth.*，正则表达式
+    ignored-interfaces: eth.*
+    preferred-networks: ${discovery.server-ip}
+
+  cache:
+    type: none
+
+
+j2cache:
+  config-location: classpath:/config/j2cache-${spring.profiles.active}-multi.properties
+  open-sprint-cache: true
+  cache-clean-mode: active
+#  redis-client: lettuce
+
+cache: #缓存保持时间 60秒钟
+  expiration: 60000
+security:
+  validate:
+    code: false
+  sessions: stateless
+  oauth2:
+    client:
+      client-id: pig
+      client-secret: pig
+    # 通用放行URL，服务个性化，请在对应配置文件覆盖
+    ignore:
+      urls:
+        - /v2/api-docs
+        - /ser/**
+        - test
+        - /ws/asset
+  encode:
+    # 前端密码密钥，必须16位
+    key: 'pxkjpxkjpxkjpxkj'
+# JWT的配置信息，在使用api服务的时候配置使用
+api:
+  token-key: Authorization
+  jwt-secret: abcdefghabcdefghabcdefghabcdefgh
+  jwt-expire-seconds: 86400
+  open-paths: /api/demo,/api/version,/api/ws
+
+# 加解密根密码
+jasypt:
+  encryptor:
+    password: pig #根密码
+
+#请求处理的超时时间
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+# mybaits-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      table-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# swagger 配置
+swagger:
+  title: Swagger API
+  contact:
+    email: zly@hnpinxun.cn
+    url: http://www.hnpinxun.cn
+  authorization:
+    name: PxOAuth
+    auth-regex: ^.*$
+    token-url-list:
+      - http://localhost:8000/oauth/token
+
+file:
+  temporary: F:/tmp/file
+
+fast-conversion:
+  type: excel
+  excel-config:
+    title-row: 0 #标题所在行
+    start-row: 1 #数据起始行，如果不设置从标题开始
+    max-row: 99999 #数据最大行数，如果不设置，最大为999999
+  relations:
+    - key: prohibiteWord
+      adapter: prohibiteWord
+      relations:
+        - key: skey #数据参数
+          val: 分类 #Excel中标题名称
+          type: str #数据类型，目前包含str\int\float\img\time，如果是img类型，将自动下载文件到临时目录，并输出到目标目录中
+          out-dir: skey #如果是img，则必填，与上层配置中的out-dir结合输出，目前是/data/excel/name
+          validator:
+            required: true #是否必填
+            min-len: 1 #最小长度
+            max-len: 30 #最大长度
+        - key: word #数据参数
+          val: 违禁词 #Excel中标题名称
+          type: str #数据类型，目前包含str\int\float\img\time，如果是img类型，将自动下载文件到临时目录，并输出到目标目录中
+          out-dir: word #如果是img，则必填，与上层配置中的out-dir结合输出，目前是/data/excel/name
+          validator:
+            required: true #是否必填
+            min-len: 1 #最小长度
+            max-len: 30 #最大长度

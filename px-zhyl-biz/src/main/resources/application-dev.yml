@@ -1,0 +1,225 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: px-zhyl
+    password: px-zhyl
+    url: jdbc:mysql://127.0.0.1:3306/px-zhyl?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&allowPublicKeyRetrieval=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    hikari:
+      minimum-idle: 20   # 指定必须保持连接的最小值
+      maximum-pool-size: 500 #指定连接池最大的连接数，包括使用中的和空闲的连接.
+      max-wait: 30000  #指定连接池等待连接返回的最大等待时间，毫秒单位.
+      login-timeout: 30 #指定连接数据库的超时时间.
+      max-active: 5  #指定连接池中最大的活跃连接数.
+      min-evictable-idle-time-millis: 60000    #指定一个空闲连接最少空闲多久后可被清除.
+      max-lifetime: 180000 #一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired）
+      connection-timeout: 30000  #等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException
+  redis:
+    password: 
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+
+file:
+  temporary: F:/tmp/file
+
+wx:
+  configs:
+    - appid: 
+      secret: 
+      token: #微信小程序消息服务器配置的token
+      aesKey: #微信小程序消息服务器配置的EncodingAESKey
+      msgDataFormat: JSON
+
+
+
+fast-conversion:
+  root-dir: F:/data #根目录
+  out-dir: /data/excel #文件输出目录
+  mould-dir: /data/mould #文件模板位置
+  temp-dir: /data/temp #临时文件输出根目录
+
+
+fastfile:
+  record: true
+  method: cos
+  #temp-dir: F:/data
+  temp-dir: /data/sftp/mysftp
+  root-dir: /data/sftp/mysftp/upload
+  sftp:
+    host: 127.0.0.1
+    port: 22
+    username: mysftp
+    password: 
+    timeout: 50000
+    aliveMax: 10
+    enable: true
+  qiniu:
+    access-key: 
+    secret-key: 
+    bucket-name: qiniu-jipfqf
+  cos:
+    region: ap-nanjing
+    bucket: yctk-1256675456
+    secret-id: 
+    secret-key: 
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    bucket-name: ali-jipfqf
+    access-key-id: 
+    access-key-secret: 
+  sites:
+    - key: home
+      accept: jpeg,png,jpg,mp4,avi,rmvb,mkv,pdf,pptx,doc,docx,m4a,wav,mp3,aac,mp4,3gp
+      sync: true
+      url: https://pic.cn
+      shrink:
+        - enable: false
+          scale: 0.3
+      result:
+        name: kname
+        path: kpath
+        type: ktype
+        shrink: sim
+    - key: yctk-1256675456
+      accept: jpeg,png,jpg,gif,mp4,avi,rmvb,mkv,pdf,pptx,doc,docx,xls,xlsx,m4a,wav,mp3,aac,mp4,3gp
+      sync: true
+      url: https://yctk-1256675456.cos.ap-nanjing.myqcloud.com/
+      shrink:
+        - enable: false
+          scale: 0.3
+      result:
+        name: kname
+        path: kpath
+        type: ktype
+        shrink: sim
+    - key: ali-jipfqf
+      accept: jpeg,png,jpg,gif,mp4,avi,rmvb,mkv,pdf,pptx,doc,docx,xls,xlsx,m4a,wav,mp3,aac,mp4,3gp
+      sync: true
+      record: com.px.fastfile.controller.DatabaseFileRecord
+      url: https://ali-jipfqf.oss-cn-beijing.aliyuncs.com/
+      shrink:
+        - enable: false
+          scale: 0.7
+          quality: 0.5
+          width: 400
+      result:
+        name: kname
+        path: kpath
+        type: ktype
+        shrink: sim
+  types:
+    - type: jpeg
+      checkHeader: false
+      header: FFD8FF
+      ftype: img
+    - type: jpg
+      checkHeader: false
+      header: "FFD8FF"
+      ftype: img
+    - type: png
+      checkHeader: false
+      header: "89504E47"
+      ftype: img
+    - type: gif
+      checkHeader: false
+      header: "47494638"
+      ftype: img
+    - type: avi
+      checkHeader: false
+      header: "47494638"
+      checkLen: true
+      ftype: video
+    - type: rmvb
+      checkHeader: false
+      header: "47494638"
+      ftype: video
+    - type: mkv
+      checkHeader: false
+      header: "47494638"
+      ftype: video
+    - type: pdf
+      checkHeader: false
+      header: "47494638"
+      ftype: doc
+    - type: pptx
+      checkHeader: false
+      header: "47494638"
+      ftype: doc
+    - type: doc
+      checkHeader: false
+      header: "47494638"
+      ftype: doc
+    - type: docx
+      checkHeader: false
+      header: "47494638"
+      ftype: doc
+    - type: xls
+      checkHeader: false
+      header: "47494638"
+      ftype: doc
+    - type: xlsx
+      checkHeader: false
+      header: "47494638"
+      ftype: doc
+    - type: m4a
+      checkHeader: false
+      header: "47494638"
+      checkLen: true
+      ftype: audio
+    - type: wav
+      checkHeader: false
+      header: "47494638"
+      checkLen: true
+      ftype: audio
+    - type: mp3
+      checkHeader: false
+      header: "47494638"
+      checkLen: true
+      ftype: audio
+    - type: aac
+      checkHeader: false
+      header: "47494638"
+      checkLen: true
+      ftype: audio
+    - type: mp4
+      checkHeader: false
+      header: "47494638"
+      checkLen: true
+      ftype: video
+    - type: 3gp
+      checkHeader: false
+      header: "47494638"
+      checkLen: true
+      ftype: video
+  multipart:
+    max-file-size: -1
+    max-request-size: -1
+
+fastmsg:
+  sms:
+    domain: dysmsapi.aliyuncs.com
+    access-key-id: 
+    access-secret: 
+    region-id: cn-hangzhou
+    enable: true
+  mp:
+    appid: 
+    secret: 
+  sms-temps:
+    - key: registMsg
+      id: SMS_209275056
+      msg-temp: 在洛阳
+    - key: companyAcStart  #公司活动开始
+      id: SMS_211260010
+      msg-temp: 在洛阳
+  mp-temps:
+    - key: orderFinish   #订餐，代买代办完成通知
+      id: HpoRRtVvzZsbQ3IO9gmlFKoE1p40EXuUuzMNwzWE7zs
+      msg-temp: /pagesA/pages/shequ/home/index
+    - key: certification   #认证审核通知
+      id: rfcZoGwlgjcQucN2neo-Y-Wjkn_w9TfSQ5bkGCgF2Vw
+      msg-temp: /pagesA/pages/shequ/love/index
+
+selectuser:
+  url: https://zhyl.cn

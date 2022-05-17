@@ -1,0 +1,18 @@
+
+
+package ${package}.${moduleName}.mapper;
+
+import ${package}.${moduleName}.entity.${className};
+import org.apache.ibatis.annotations.Mapper;
+import com.px.basic.alone.core.base.BaseMapperImpl;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${className}Mapper extends BaseMapperImpl<${className}> {
+
+}

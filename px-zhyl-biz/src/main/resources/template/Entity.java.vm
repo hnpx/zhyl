@@ -1,0 +1,47 @@
+
+
+package ${package}.${moduleName}.entity;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import com.px.basic.alone.core.base.BaseModel;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@TableName("${tableName}")
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "${comments}")
+public class ${className} extends BaseModel<${className}> {
+private static final long serialVersionUID = 1L;
+
+    #foreach ($column in $columns)
+    #if($column.columnName != $pk.columnName && $column.columnName!="id" && $column.columnName!="remark"  && $column.columnName!="sort" && $column.columnName!="create_by"  && $column.columnName!="create_time" && $column.columnName!="update_by" && $column.columnName!="update_time" && $column.columnName!="enable")
+    /**
+     * $column.comments
+     */
+        #if($column.nullable)
+        @NotNull(message="$column.comments不能为空")
+        #end
+        #if($column.len>0)
+        @Size(max=$column.len,message = "$column.comments超出长度$column.len的限制")
+        #end
+        @ApiModelProperty(value="$column.comments"#if($column.hidden),hidden=$column.hidden#end)
+        private $column.attrType $column.lowerAttrName;
+    #end
+    #end
+}

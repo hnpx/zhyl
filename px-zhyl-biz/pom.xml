@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+            http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.px</groupId>
+        <artifactId>px-zhyl</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>px-zhyl-biz</artifactId>
+    <packaging>jar</packaging>
+
+    <description>archetype gen</description>
+
+
+
+    <dependencies>
+
+        <!-- 正式版必须取消 -->
+<!--        <dependency>
+            <groupId>com.px</groupId>
+            <artifactId>px-plugins-codegen</artifactId>
+            <version>1.0.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pig4cloud</groupId>
+                    <artifactId>px-common-basic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+        <!---->
+        <!-- excel工具 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency> <!-- 操作File好用 可选 -->
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <!--必备 core 工具类-->
+        <dependency>
+            <groupId>com.pig4cloud</groupId>
+            <artifactId>px-common-basic</artifactId>
+            <version>1.0.9.8</version>
+        </dependency>
+
+        <!--微信服务-->
+        <dependency>
+            <groupId>com.pig4cloud</groupId>
+            <artifactId>px-common-weixin</artifactId>
+            <version>1.0.0.9</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pig4cloud</groupId>
+                    <artifactId>px-common-basic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--日志服务-->
+        <dependency>
+            <groupId>com.pig4cloud</groupId>
+            <artifactId>px-common-log</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.10</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.6</version>
+        </dependency>
+        <!--请求服务-->
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <!--XML-->
+        <dependency>
+            <groupId>de.odysseus.staxon</groupId>
+            <artifactId>staxon</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <!-- json jar包 -->
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.ezmorph</groupId>
+            <artifactId>ezmorph</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <!--可选：mybatis （需要链接数据库开启）-->
+        <dependency>
+            <groupId>com.pig4cloud</groupId>
+            <artifactId>px-common-mybatis</artifactId>
+            <version>1.0.4</version>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pig4cloud</groupId>
+                    <artifactId>px-common-basic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.px</groupId>
+            <artifactId>px-plugins-fastfile</artifactId>
+            <version>1.0.31</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pig4cloud</groupId>
+                    <artifactId>px-common-basic</artifactId>
+                </exclusion>
+            </exclusions>
+
+        </dependency>
+        <!--必备：web 模块-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!--排除tomcat依赖-->
+                <exclusion>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--必备：undertow容器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+
+        <!--XSS 安全过滤-->
+        <dependency>
+            <groupId>net.dreamlu</groupId>
+            <artifactId>mica-core</artifactId>
+            <version>2.0.9-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>net.dreamlu</groupId>
+            <artifactId>mica-xss</artifactId>
+            <version>2.0.9-GA</version>
+        </dependency>
+
+
+        <!--websocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+
+        <!-- 数据导入模块 -->
+        <dependency>
+            <groupId>com.px</groupId>
+            <artifactId>px-plugins-conversion-excel</artifactId>
+            <version>1.0.10</version>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pig4cloud</groupId>
+                    <artifactId>px-common-basic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.px</groupId>
+            <artifactId>px-plugins-conversion-api</artifactId>
+            <version>1.0.0</version>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pig4cloud</groupId>
+                    <artifactId>px-common-basic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--消息通知-->
+        <dependency>
+            <groupId>com.px</groupId>
+            <artifactId>px-visual-msg</artifactId>
+            <version>1.0.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.pig4cloud</groupId>
+                    <artifactId>px-common-core</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>compile</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.tld</include>
+                    <include>**/*.vm</include>
+                    <include>*.properties</include>
+                    <include>*.yml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.4.RELEASE</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
